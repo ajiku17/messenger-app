@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar_image_placeholder" />
+
+    <EditText
+        android:id="@+id/nickname_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:padding="@dimen/padding"
+
+        android:textAlignment="center"
+        android:ems="12"
+        android:inputType="textPersonName"
+        android:text="@string/enter_your_nickname"
+        android:background="@drawable/gray_background"
+        android:textColor="@color/edit_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/password_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:padding="@dimen/padding"
+
+        android:textAlignment="center"
+        android:ems="12"
+        android:inputType="textPassword"
+        android:text="@string/enter_your_password"
+        android:background="@drawable/gray_background"
+        android:textColor="@color/edit_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname_field"
+        android:gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/profession_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:padding="@dimen/padding"
+
+        android:textAlignment="center"
+        android:ems="12"
+        android:inputType="textPersonName"
+        android:text="@string/what_i_do"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/gray_background"
+        android:textColor="@color/edit_text_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_field"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:text="@string/sign_up"
+        android:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profession_field" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
