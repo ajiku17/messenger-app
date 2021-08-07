@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/conversations_item_avatar"
+        android:layout_width="@dimen/coversation_item_avatar_size"
+        android:layout_height="@dimen/coversation_item_avatar_size"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:src="@drawable/avatar_image_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_placeholder"
+        android:textSize="@dimen/conversation_item_name_size"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/conversations_item_avatar"
+        app:layout_constraintTop_toTopOf="@+id/conversations_item_avatar"
+        android:layout_marginLeft="@dimen/marginSmall"
+        android:layout_marginStart="@dimen/marginSmall"/>
+
+    <TextView
+        android:id="@+id/lastMessageLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:maxLines="2"
+        android:text="Blaaaaaaaaa some "
+        app:layout_constraintEnd_toStartOf="@+id/lastMessageTimeLabel"
+        app:layout_constraintStart_toStartOf="@+id/nameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+    <TextView
+        android:id="@+id/lastMessageTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15 min"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nameLabel"
+        android:layout_marginRight="@dimen/margin"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
