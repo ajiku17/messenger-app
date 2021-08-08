@@ -1,4 +1,4 @@
-package ge.ajikuridze.messengerapp.conversation
+package ge.ajikuridze.messengerapp.conversations
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package ge.ajikuridze.messengerapp.conversation
+package ge.ajikuridze.messengerapp.conversations
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 
-class ConversationsFragment(var conversations: ArrayList<ConversationPreview>) : Fragment() {
+class ConversationsFragment() : Fragment(), IConversationsView {
 
     private lateinit var conversationsList: RecyclerView
     private lateinit var listAdapter: ConversationsListAdapter
+
+    private var presenter: IConversationsPresenter = ConversationsPresenter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +29,19 @@ class ConversationsFragment(var conversations: ArrayList<ConversationPreview>) :
 
         conversationsList = view.findViewById(R.id.converations)
 
-        listAdapter = ConversationsListAdapter(conversations)
+        listAdapter = ConversationsListAdapter(arrayListOf())
+        conversationsList.adapter = listAdapter
+
+        presenter.fetchConversations()
+    }
+
+    override fun conversationsFetched(data: ArrayList<ConversationPreview>) {
+        listAdapter = ConversationsListAdapter(data)
         conversationsList.adapter = listAdapter
     }
 
     fun updateConversations(data: ArrayList<ConversationPreview>) {
-        conversations = data
-        listAdapter.notifyDataSetChanged()
+
     }
 
 }

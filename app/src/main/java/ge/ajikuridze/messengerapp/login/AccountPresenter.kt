@@ -1,6 +1,6 @@
 package ge.ajikuridze.messengerapp.login
 
-import ge.ajikuridze.messengerapp.models.User
+import ge.ajikuridze.messengerapp.models.Account
 
 class AccountPresenter(var view: ILoginView): ILoginPresenter {
 
@@ -14,7 +14,7 @@ class AccountPresenter(var view: ILoginView): ILoginPresenter {
         return interactor.registerUser(name, pass, profession)
     }
 
-    override fun getCurrentUser(): User? {
+    override fun getCurrentUser(): Account? {
         return interactor.getCurrentUser()
     }
 

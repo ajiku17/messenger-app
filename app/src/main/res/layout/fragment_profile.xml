@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".profile.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="100dp"
 
-</FrameLayout>
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar_image_placeholder"
+        android:gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/nickname_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:textAlignment="center"
+        android:ems="12"
+        android:inputType="textPersonName"
+        android:text="@string/nickname"
+        android:background="@drawable/gray_background"
+        android:textColor="@color/edit_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pic"
+        android:gravity="center_horizontal" />
+
+
+    <EditText
+        android:id="@+id/profession_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:ems="12"
+        android:inputType="textPersonName"
+
+        android:textAlignment="center"
+        android:text="@string/what_i_do"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/gray_background"
+        android:textColor="@color/edit_text_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname_field"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:text="@string/update"
+        android:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profession_field" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sign_up"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sign out"
+        android:textColor="@color/gray_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/gray_dark"
+        android:layout_marginBottom="@dimen/marginLarge"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

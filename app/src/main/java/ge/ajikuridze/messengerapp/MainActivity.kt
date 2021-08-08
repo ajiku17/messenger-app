@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import ge.ajikuridze.messengerapp.conversations.ConversationsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +19,19 @@ class MainActivity : AppCompatActivity() {
 
     fun initNavBar() {
         navBar = findViewById(R.id.bottom_navigation_view)
+        navBar.setOnNavigationItemSelectedListener {
+            if (it.itemId == R.id.nav_item_profile) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_layout, ProfileFragment())
+                    .commit()
+            } else {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_layout, ConversationsFragment())
+                    .commit()
+            }
 
+            true
+        }
     }
 
     companion object {

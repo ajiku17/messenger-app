@@ -13,4 +13,6 @@
     <string name="floating_button_description">Start a new conversation</string>
     <string name="search">Search</string>
     <string name="name_placeholder">Name</string>
+    <string name="update">Update</string>
+    <string name="nickname">Nickname</string>
 </resources>

@@ -1,9 +1,9 @@
 package ge.ajikuridze.messengerapp.login
 
-import ge.ajikuridze.messengerapp.models.User
+import ge.ajikuridze.messengerapp.models.Account
 
 class AccountInteractor(var presenter: AccountPresenter): ILoginInteractor {
-    override fun getCurrentUser(): User? {
+    override fun getCurrentUser(): Account? {
         TODO("Not yet implemented")
     }
 
