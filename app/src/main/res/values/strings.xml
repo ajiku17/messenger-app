@@ -15,4 +15,5 @@
     <string name="name_placeholder">Name</string>
     <string name="update">Update</string>
     <string name="nickname">Nickname</string>
+    <string name="profession">Profession</string>
 </resources>

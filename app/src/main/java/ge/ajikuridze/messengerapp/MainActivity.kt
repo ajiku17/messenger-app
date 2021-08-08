@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ge.ajikuridze.messengerapp.conversations.ConversationsFragment
+import ge.ajikuridze.messengerapp.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 

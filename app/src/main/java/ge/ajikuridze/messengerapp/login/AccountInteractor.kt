@@ -4,7 +4,7 @@ import ge.ajikuridze.messengerapp.models.Account
 
 class AccountInteractor(var presenter: AccountPresenter): ILoginInteractor {
     override fun getCurrentUser(): Account? {
-        TODO("Not yet implemented")
+        return null
     }
 
     override fun validateUser(username: String, password: String): Boolean {
