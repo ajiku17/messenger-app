@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+
+        navBar.selectedItemId = R.id.nav_item_home
     }
 
     companion object {

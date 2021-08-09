@@ -1,5 +1,7 @@
 package ge.ajikuridze.messengerapp.login
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -56,6 +58,13 @@ class SignInActivity : AppCompatActivity(), ILoginView {
 
     fun showError(msg :String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, SignInActivity::class.java))
+        }
+
     }
 
 }
