@@ -1,6 +1,7 @@
 package ge.ajikuridze.messengerapp.login
 
 import android.util.Log
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase

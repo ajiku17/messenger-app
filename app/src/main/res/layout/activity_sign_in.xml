@@ -54,24 +54,6 @@
         app:layout_constraintTop_toBottomOf="@+id/nickname_field"
         android:gravity="center_horizontal" />
 
-    <EditText
-        android:id="@+id/profession_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
-        android:padding="@dimen/padding"
-        android:ems="12"
-        android:inputType="textPersonName"
-
-        android:textAlignment="center"
-        android:hint="@string/what_i_do"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/gray_background"
-        android:textColor="@color/edit_text_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_field"
-        android:gravity="center_horizontal" />
-
     <Button
         android:id="@+id/sign_in"
         android:layout_width="wrap_content"
@@ -82,7 +64,7 @@
         android:backgroundTint="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profession_field" />
+        app:layout_constraintTop_toBottomOf="@+id/password_field" />
 
     <TextView
         android:id="@+id/not_registered"

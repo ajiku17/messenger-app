@@ -3,6 +3,7 @@ package ge.ajikuridze.messengerapp.login
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.FirebaseApp
 import ge.ajikuridze.messengerapp.MainActivity
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.databinding.ActivitySignInBinding
@@ -10,7 +11,7 @@ import ge.ajikuridze.messengerapp.models.Account
 
 class SignInActivity : AppCompatActivity(), ILoginView {
 
-    private var presenter: ILoginPresenter = AccountPresenter(this)
+    private lateinit var presenter: ILoginPresenter
     private lateinit var binding: ActivitySignInBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +19,9 @@ class SignInActivity : AppCompatActivity(), ILoginView {
 
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FirebaseApp.initializeApp(this)
+        presenter = AccountPresenter(this)
 
         initListeners()
         if (presenter.isUserLoggedIn()) {
