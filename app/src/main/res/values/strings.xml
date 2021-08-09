@@ -16,4 +16,6 @@
     <string name="update">Update</string>
     <string name="nickname">Nickname</string>
     <string name="profession">Profession</string>
+    <string name="name">Name</string>
+    <string name="avatar_desc">contact avatar</string>
 </resources>

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/drawable/ic_back.xml" value="0.37604166666666666" />
+        <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/drawable/ic_send.xml" value="0.29791666666666666" />
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/activity_chat.xml" value="0.3401268115942029" />
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/activity_main.xml" value="0.3401268115942029" />
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/activity_search.xml" value="0.3220108695652174" />
@@ -12,6 +13,8 @@
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/coversation_item.xml" value="0.2848731884057971" />
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/fragment_conversations.xml" value="0.2848731884057971" />
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/fragment_profile.xml" value="0.3220108695652174" />
+        <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/message_item_received.xml" value="0.28177083333333336" />
+        <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/message_item_sent.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/Azry/AndroidStudioProjects/MessengerApp/app/src/main/res/layout/search_list_item.xml" value="0.3220108695652174" />
       </map>
     </option>

@@ -14,7 +14,7 @@
         <activity
             android:name=".search.SearchActivity"
             android:exported="true" />
-        <activity android:name=".ChatActivity" />
+        <activity android:name=".chat.ChatActivity" />
         <activity android:name=".login.SignUpActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".login.SignInActivity">

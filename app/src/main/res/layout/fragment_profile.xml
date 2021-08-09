@@ -79,6 +79,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/gray_dark"
-        android:layout_marginBottom="@dimen/marginLarge"/>
+        android:layout_marginBottom="@dimen/margin_large"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

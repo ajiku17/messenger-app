@@ -34,18 +34,18 @@
             <EditText
                 android:id="@+id/search_field"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/searchBarHeight"
+                android:layout_height="@dimen/search_bar_height"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginBottom="@dimen/margin"
-                android:layout_marginLeft="@dimen/marginLarge"
-                android:layout_marginRight="@dimen/marginLarge"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginRight="@dimen/margin_large"
                 android:background="@drawable/gray_background"
                 android:hint="@string/search"
                 android:inputType="textPersonName"
                 android:paddingTop="@dimen/padding"
                 android:paddingBottom="@dimen/padding"
-                android:paddingLeft="@dimen/paddingLarge"
-                android:paddingRight="@dimen/paddingLarge"
+                android:paddingLeft="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large"
                 android:textColor="@color/edit_text_color" />
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>

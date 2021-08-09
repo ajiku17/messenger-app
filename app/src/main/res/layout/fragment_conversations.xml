@@ -31,7 +31,7 @@
                 <EditText
                     android:id="@+id/etRecentChatsSearch"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/searchBarHeight"
+                    android:layout_height="@dimen/search_bar_height"
                     android:layout_marginTop="@dimen/margin"
                     android:layout_marginBottom="@dimen/margin"
                     android:layout_marginEnd="@dimen/margin"

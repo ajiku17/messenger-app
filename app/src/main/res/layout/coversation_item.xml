@@ -25,8 +25,8 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/conversations_item_avatar"
         app:layout_constraintTop_toTopOf="@+id/conversations_item_avatar"
-        android:layout_marginLeft="@dimen/marginSmall"
-        android:layout_marginStart="@dimen/marginSmall"/>
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small"/>
 
     <TextView
         android:id="@+id/lastMessageLabel"
