@@ -3,8 +3,7 @@ package ge.ajikuridze.messengerapp.login
 import ge.ajikuridze.messengerapp.models.*
 
 interface ILoginInteractor {
-    fun getCurrentUser(): Account?
-    fun validateUser(username: String, password: String): Boolean
+    fun currentUserExists(): Boolean
     fun loginUser(username: String, password: String)
-    fun registerUser(name: String, pass: String, profession: String): Boolean
+    fun registerUser(email: String, account: Account, pass: String)
 }

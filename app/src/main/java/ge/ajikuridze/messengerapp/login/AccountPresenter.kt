@@ -1,5 +1,6 @@
 package ge.ajikuridze.messengerapp.login
 
+import ge.ajikuridze.messengerapp.Utils
 import ge.ajikuridze.messengerapp.models.Account
 
 class AccountPresenter(var view: ILoginView): ILoginPresenter {
@@ -7,25 +8,23 @@ class AccountPresenter(var view: ILoginView): ILoginPresenter {
     private val interactor: ILoginInteractor = AccountInteractor(this)
 
     override fun isUserLoggedIn(): Boolean {
-        return interactor.getCurrentUser() != null
+        return interactor.currentUserExists()
     }
 
-    override fun registerUser(name: String, pass: String, profession: String): Boolean {
-        return interactor.registerUser(name, pass, profession)
+    override fun registerUser(account: Account, pass: String) {
+        interactor.registerUser(Utils.usernameToEmail(account.name!!), account, pass)
     }
 
-    override fun getCurrentUser(): Account? {
-        return interactor.getCurrentUser()
+    override fun userRegistered(account: Account, result: Boolean) {
+        view.userRegistered(account, result)
     }
 
-    override fun loginUser(username: String, password: String): Boolean {
-        if (interactor.validateUser(username, password)) {
-            interactor.loginUser(username, password)
-        }
-
-        return false
+    override fun loginUser(username: String, password: String) {
+        interactor.loginUser(Utils.usernameToEmail(username), password)
     }
 
-
+    override fun onLoginResult(result: Boolean) {
+        view.onLoginResult(result)
+    }
 
 }

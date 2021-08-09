@@ -8,6 +8,7 @@ import android.widget.Toast
 import ge.ajikuridze.messengerapp.MainActivity
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.databinding.ActivitySignUpBinding
+import ge.ajikuridze.messengerapp.models.Account
 
 class SignUpActivity : AppCompatActivity(), ILoginView {
 
@@ -29,11 +30,12 @@ class SignUpActivity : AppCompatActivity(), ILoginView {
             val pass = binding.passwordField.text.toString()
             val profession = binding.professionField.text.toString()
 
-            if (presenter.registerUser(name, pass, profession)) {
-                MainActivity.start(this)
-            } else {
-                showError("Could not register user")
-            }
+            val acc = Account(
+                name = name,
+                profession = profession
+            )
+
+            presenter.registerUser(acc, pass)
         }
     }
 
@@ -44,6 +46,18 @@ class SignUpActivity : AppCompatActivity(), ILoginView {
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, SignUpActivity::class.java))
+        }
+    }
+
+    override fun currentUserFetched(account: Account?) {}
+
+    override fun onLoginResult(result: Boolean) {}
+
+    override fun userRegistered(accunt: Account?, result: Boolean) {
+        if (result) {
+            MainActivity.start(this)
+        } else {
+            showError("Could not register user")
         }
     }
 }
