@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
+import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 
 class ConversationsFragment() : Fragment(), IConversationsView {
@@ -41,7 +42,7 @@ class ConversationsFragment() : Fragment(), IConversationsView {
     }
 
     fun updateConversations(data: ArrayList<ConversationPreview>) {
-
+        listAdapter.updateData(data)
     }
 
 }

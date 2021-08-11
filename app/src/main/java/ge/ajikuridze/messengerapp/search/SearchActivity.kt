@@ -1,14 +1,19 @@
 package ge.ajikuridze.messengerapp.search
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
+import ge.ajikuridze.messengerapp.MainActivity
 import ge.ajikuridze.messengerapp.R
+import ge.ajikuridze.messengerapp.chat.ChatActivity
 import ge.ajikuridze.messengerapp.conversations.ConversationsListAdapter
 import ge.ajikuridze.messengerapp.conversations.ConversationsPresenter
 import ge.ajikuridze.messengerapp.conversations.IConversationsPresenter
@@ -16,12 +21,12 @@ import ge.ajikuridze.messengerapp.models.Account
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SearchActivity : AppCompatActivity(), ISearchView {
+class SearchActivity : AppCompatActivity(), ISearchView, SearchListClickListener {
 
     private lateinit var searchList: RecyclerView
     private lateinit var listAdapter: SearchListAdapter
     private lateinit var searchField: EditText
-    private lateinit var backButton: Button
+    private lateinit var backButton: ImageButton
 
     private lateinit var loader: Any
 
@@ -35,7 +40,7 @@ class SearchActivity : AppCompatActivity(), ISearchView {
         searchField = findViewById(R.id.search_field)
         backButton = findViewById(R.id.back_button)
 
-        listAdapter = SearchListAdapter(arrayListOf())
+        listAdapter = SearchListAdapter(this, arrayListOf())
         searchList.adapter = listAdapter
 
         setListeners()
@@ -74,6 +79,16 @@ class SearchActivity : AppCompatActivity(), ISearchView {
 
     fun disableLoader() {
 
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, SearchActivity::class.java))
+        }
+    }
+
+    override fun accountClicked(acc: Account) {
+        ChatActivity.start(this, acc.id!!)
     }
 
 

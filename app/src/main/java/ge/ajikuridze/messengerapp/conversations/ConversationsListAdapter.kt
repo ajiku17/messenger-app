@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
+import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 
 class ConversationsListAdapter(private var data :ArrayList<ConversationPreview>): RecyclerView.Adapter<ConversationsListItemViewHolder>() {
@@ -20,13 +21,21 @@ class ConversationsListAdapter(private var data :ArrayList<ConversationPreview>)
     }
 
     override fun onBindViewHolder(holder: ConversationsListItemViewHolder, position: Int) {
-        val preview = data[position]
+        val conv = data[position]
 
         // init holder
+        holder.name.text = conv.otherAcc.name
+        holder.lastMessage.text = conv.message.text
+        holder.lastMessageDate.text = conv.message.timestamp.toString()
     }
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    fun updateData(newData :ArrayList<ConversationPreview>) {
+        data = newData
+        notifyDataSetChanged()
     }
 
 }

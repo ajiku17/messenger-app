@@ -19,6 +19,8 @@ class AccountInteractor(var presenter: ILoginPresenter): ILoginInteractor, Execu
     }
 
     override fun loginUser(email: String, password: String) {
+        if (email.isBlank()) return
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 presenter.onLoginResult(task.isSuccessful)

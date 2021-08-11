@@ -4,6 +4,6 @@ import ge.ajikuridze.messengerapp.models.*
 
 interface ILoginInteractor {
     fun currentUserExists(): Boolean
-    fun loginUser(username: String, password: String)
+    fun loginUser(name: String, password: String)
     fun registerUser(email: String, account: Account, pass: String)
 }

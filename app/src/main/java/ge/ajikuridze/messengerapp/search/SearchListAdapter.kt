@@ -1,5 +1,6 @@
 package ge.ajikuridze.messengerapp.search
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.models.Account
 
-class SearchListAdapter(var data: ArrayList<Account>): RecyclerView.Adapter<SearchListItemViewHolder>() {
+class SearchListAdapter(private val listener: SearchListClickListener,
+                        var data: ArrayList<Account>): RecyclerView.Adapter<SearchListItemViewHolder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchListItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_list_item, parent, false)
         return SearchListItemViewHolder(view)
@@ -20,6 +22,12 @@ class SearchListAdapter(var data: ArrayList<Account>): RecyclerView.Adapter<Sear
         val acc = data[position]
 
         // init holder
+        holder.name.text = acc.name
+        holder.profession.text = acc.profession
+
+        holder.itemView.setOnClickListener {
+            listener.accountClicked(acc)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +42,7 @@ class SearchListAdapter(var data: ArrayList<Account>): RecyclerView.Adapter<Sear
 }
 
 class SearchListItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
-    var avatar: EditText = view.findViewById(R.id.search_item_avatar)
+//    var avatar: EditText = view.findViewById(R.id.search_item_avatar)
     var name: TextView = view.findViewById(R.id.search_item_name)
     var profession: TextView = view.findViewById(R.id.search_item_profession)
 }

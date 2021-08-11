@@ -1,5 +1,6 @@
 package ge.ajikuridze.messengerapp.conversations
 
+import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 
 interface IConversationsPresenter {
