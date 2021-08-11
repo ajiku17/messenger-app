@@ -11,19 +11,37 @@ import ge.ajikuridze.messengerapp.models.Message
 
 class MessageListAdapter(private var data :ArrayList<Message>): RecyclerView.Adapter<MessageListItemViewHolder>() {
 
+    val SENT     = 1
+    val RECEIVED = 2
+
+    override fun getItemViewType(position: Int): Int {
+        val message = data[position]
+        if (message.sent == true) {
+            return SENT
+        }
+        return RECEIVED
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MessageListItemViewHolder {
-        // TODO
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.message_item_sent, parent, false)
+        val view = if (viewType == SENT) {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.message_item_sent, parent, false)
+        } else {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.message_item_received, parent, false)
+        }
+
         return MessageListItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MessageListItemViewHolder, position: Int) {
-        val preview = data[position]
+        val message = data[position]
 
-        // init holder
+        holder.messageText.text = message.text
+        holder.messsageTime.text = message.timestamp.toString()
     }
 
     override fun getItemCount(): Int {
@@ -39,8 +57,6 @@ class MessageListAdapter(private var data :ArrayList<Message>): RecyclerView.Ada
 
 
 class MessageListItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
-//    var avatar: ImageView = view.findViewById(R.id.conversations_item_avatar)
-//    var name: TextView = view.findViewById(R.id.nameLabel)
-//    var lastMessage: TextView = view.findViewById(R.id.lastMessageLabel)
-//    var lastMessageDate: TextView = view.findViewById(R.id.lastMessageTimeLabel)
+    var messageText: TextView = view.findViewById(R.id.message_view)
+    var messsageTime: TextView = view.findViewById(R.id.time_sent_view)
 }

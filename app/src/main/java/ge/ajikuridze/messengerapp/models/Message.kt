@@ -13,9 +13,9 @@ import java.util.*
 class Message(
     @get:Exclude
     var convUid: String? = null,
-    @get:Exclude
-    var received: Boolean? = true,
     var sender: String? = null,
+    @get:Exclude
+    var sent: Boolean? = true,
     val timestamp: Long? = Calendar.getInstance().timeInMillis,
     val text: String? = null,
 ) : Parcelable {

@@ -18,4 +18,6 @@
     <string name="profession">Profession</string>
     <string name="name">Name</string>
     <string name="avatar_desc">contact avatar</string>
+    <string name="sent_time">Sent time</string>
+    <string name="messagetext">MessageText</string>
 </resources>

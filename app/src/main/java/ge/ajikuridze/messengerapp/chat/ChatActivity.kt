@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.firebase.FirebaseApp
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
@@ -30,11 +31,13 @@ class ChatActivity : AppCompatActivity(), IChatView {
     private lateinit var otherAcc: Account
     private lateinit var conv: Conversation
 
-    private var presenter: IChatPresenter = ChatPresenter(this)
+    private lateinit var presenter: IChatPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        presenter = ChatPresenter(this)
 
         val otherAccountId = intent.getStringExtra(CHAT_WITH_EXTRA)
 
@@ -69,7 +72,7 @@ class ChatActivity : AppCompatActivity(), IChatView {
             }
 
             val message = Message(
-                convUid = conv.uid!!,
+                convUid = conv.id!!,
                 text = messageText
             )
             presenter.sendMessage(message)
@@ -100,9 +103,11 @@ class ChatActivity : AppCompatActivity(), IChatView {
             presenter.createNewConversationWith(otherAcc)
         } else {
             // all good
-            Log.d("chat activiy","conversation fetched with messages${conv.messages?.size}")
+            Log.d("chat activity","conversation fetched with messages${conv.messages?.size}")
             this.conv = conv
-            listAdapter.updateData(conv.messages as ArrayList<Message>)
+            if (conv.messages != null) {
+                listAdapter.updateData(ArrayList(conv.messages!!.values))
+            }
         }
     }
 

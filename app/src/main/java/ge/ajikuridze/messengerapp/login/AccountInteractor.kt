@@ -13,6 +13,7 @@ class AccountInteractor(var presenter: ILoginPresenter): ILoginInteractor, Execu
 
     private val auth: FirebaseAuth = Firebase.auth
     private val accounts = FirebaseDatabase.getInstance().getReference("accounts")
+    private val conversations = FirebaseDatabase.getInstance().getReference("conversations")
 
     override fun currentUserExists(): Boolean {
         return auth.currentUser != null
@@ -42,13 +43,15 @@ class AccountInteractor(var presenter: ILoginPresenter): ILoginInteractor, Execu
     }
 
     private fun saveAccount(account: Account) {
-        auth.currentUser?.uid?.let { uid ->
-            accounts.child(uid).setValue(account).addOnSuccessListener {
-                presenter.userRegistered(account, true)
-            }.addOnFailureListener {
-                presenter.userRegistered(account, false)
+//        conversations.child("hello").setValue("bla").addOnSuccessListener {
+            auth.currentUser?.uid?.let { uid ->
+                accounts.child(uid).setValue(account).addOnSuccessListener {
+                    presenter.userRegistered(account, true)
+                }.addOnFailureListener {
+                    presenter.userRegistered(account, false)
+                }
             }
-        }
+//        }
     }
 
     override fun execute(command: Runnable?) {

@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="edit_text_color">#919191</color>
     <color name="edit_text_background">#F3F6FF</color>
+    <color name="sent_message_background">#3456C5</color>
+    <color name="received_message_background">#E1F5FE</color>
     <color name="sky">#5479F1</color>
     <color name="gray_dark">#505050</color>
 </resources>

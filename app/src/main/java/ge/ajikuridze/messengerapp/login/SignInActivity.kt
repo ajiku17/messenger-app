@@ -22,7 +22,7 @@ class SignInActivity : AppCompatActivity(), ILoginView {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        FirebaseApp.initializeApp(this)
+//        FirebaseApp.initializeApp(this)
         presenter = AccountPresenter(this)
 
         initListeners()

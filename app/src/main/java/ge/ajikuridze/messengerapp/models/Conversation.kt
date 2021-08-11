@@ -8,10 +8,10 @@ import kotlinx.android.parcel.Parcelize
 @IgnoreExtraProperties
 @Parcelize
 data class Conversation (
-    @get:Exclude
-    var uid: String? = null,
+    var id: String? = null,
     var lastMessage: Message? = null,
-    var messages: MutableList<Message>? = null,
-): Parcelable {
+    var messages: HashMap<String, Message>? = null,
+    var dummy: Int? = null,
+) : Parcelable {
 
 }
