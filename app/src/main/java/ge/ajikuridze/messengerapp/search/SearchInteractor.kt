@@ -1,13 +1,10 @@
 package ge.ajikuridze.messengerapp.search
 
-import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import ge.ajikuridze.messengerapp.models.Account
-import ge.ajikuridze.messengerapp.models.Conversation
-import ge.ajikuridze.messengerapp.models.ConversationEntry
 
 class SearchInteractor(val presenter: ISearchPresenter): ISearchInteractor {
 

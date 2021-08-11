@@ -29,7 +29,7 @@
                 android:layout_gravity="bottom">
 
                 <EditText
-                    android:id="@+id/etRecentChatsSearch"
+                    android:id="@+id/conversation_search"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/search_bar_height"
                     android:layout_marginTop="@dimen/margin"

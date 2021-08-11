@@ -1,8 +1,6 @@
 package ge.ajikuridze.messengerapp.search
 
 import ge.ajikuridze.messengerapp.models.Account
-import ge.ajikuridze.messengerapp.models.Conversation
-import ge.ajikuridze.messengerapp.models.ConversationEntry
 
 
 class SearchPresenter(val view: ISearchView): ISearchPresenter {

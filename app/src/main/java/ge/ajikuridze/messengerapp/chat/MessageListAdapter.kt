@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
+import ge.ajikuridze.messengerapp.Utils
 import ge.ajikuridze.messengerapp.models.Message
 
 class MessageListAdapter(private var data :ArrayList<Message>): RecyclerView.Adapter<MessageListItemViewHolder>() {
@@ -41,7 +42,7 @@ class MessageListAdapter(private var data :ArrayList<Message>): RecyclerView.Ada
         val message = data[position]
 
         holder.messageText.text = message.text
-        holder.messsageTime.text = message.timestamp.toString()
+        holder.messsageTime.text = message.timestamp?.let { Utils.formatTime(it) }
     }
 
     override fun getItemCount(): Int {

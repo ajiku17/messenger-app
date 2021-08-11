@@ -20,4 +20,5 @@
     <string name="avatar_desc">contact avatar</string>
     <string name="sent_time">Sent time</string>
     <string name="messagetext">MessageText</string>
+    <string name="sign_out">sign out</string>
 </resources>

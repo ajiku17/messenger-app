@@ -7,10 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
+import ge.ajikuridze.messengerapp.Utils
+import ge.ajikuridze.messengerapp.chat.ChatActivity
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 
-class ConversationsListAdapter(private var data :ArrayList<ConversationPreview>): RecyclerView.Adapter<ConversationsListItemViewHolder>() {
+class ConversationsListAdapter(val listener: ConversationItemClickListener,
+                               private var data :ArrayList<ConversationPreview>):
+    RecyclerView.Adapter<ConversationsListItemViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,7 +30,11 @@ class ConversationsListAdapter(private var data :ArrayList<ConversationPreview>)
         // init holder
         holder.name.text = conv.otherAcc.name
         holder.lastMessage.text = conv.message.text
-        holder.lastMessageDate.text = conv.message.timestamp.toString()
+        holder.lastMessageDate.text = Utils.formatTime(conv.message.timestamp!!)
+
+        holder.itemView.setOnClickListener {
+            listener.conversationItemClicked(conv)
+        }
     }
 
     override fun getItemCount(): Int {

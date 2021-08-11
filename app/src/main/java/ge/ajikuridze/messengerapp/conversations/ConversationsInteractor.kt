@@ -1,6 +1,7 @@
 package ge.ajikuridze.messengerapp.conversations
 
 import android.util.Log
+import androidx.core.content.contentValuesOf
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -16,7 +17,7 @@ class ConversationsInteractor(var presenter: IConversationsPresenter): IConversa
     private var accounts = Firebase.database.getReference("accounts")
     private var conversationsdb = Firebase.database.getReference("conversations")
 
-    override fun fetchConversations() {
+    override fun fetchConversations(filterStr: String?) {
         accounts.child(auth.currentUser?.uid!!).get().addOnSuccessListener { userSnapshot ->
             val currentUser = userSnapshot.getValue<Account>()
 
@@ -32,17 +33,24 @@ class ConversationsInteractor(var presenter: IConversationsPresenter): IConversa
 
                         convs?.onEach { (convId, conv) ->
                             val otherAccount = allAccounts!!.get(currentConversations[convId]!!)
-                            val preview =
-                                conv.lastMessage?.let {
-                                    ConversationPreview(otherAccount!!, it)
-                                }
+                            if (otherAccount != null && currentConversations[convId] != null) {
+                                otherAccount.id = currentConversations[convId]
+                                if (filterStr == null || otherAccount.name!!.contains(filterStr)) {
+                                    val preview =
+                                        conv.lastMessage?.let {
+                                            ConversationPreview(otherAccount, it)
+                                        }
 
-                            if (preview != null) {
-                                conversationPreviews.add(conversationPreviews.size, preview)
+                                    if (preview != null) {
+                                        conversationPreviews.add(conversationPreviews.size, preview)
+                                    }
+                                }
                             }
                         }
 
-                        presenter.conversationsFetched(conversationPreviews as ArrayList<ConversationPreview>)
+                        presenter.conversationsFetched(ArrayList(conversationPreviews.sortedByDescending {
+                            it.message.timestamp
+                        }))
                     }
 
 

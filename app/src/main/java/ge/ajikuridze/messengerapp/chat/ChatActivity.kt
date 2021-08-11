@@ -5,10 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.FirebaseApp
@@ -16,6 +13,10 @@ import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.Message
+import androidx.recyclerview.widget.LinearLayoutManager
+
+
+
 
 class ChatActivity : AppCompatActivity(), IChatView {
 
@@ -23,6 +24,7 @@ class ChatActivity : AppCompatActivity(), IChatView {
     private lateinit var listAdapter: MessageListAdapter
     private lateinit var nameLabel: TextView
     private lateinit var professionLabel: TextView
+    private lateinit var avatarImage: ImageView
     private lateinit var toolbar: MaterialToolbar
 
     private lateinit var messageField: EditText
@@ -48,9 +50,16 @@ class ChatActivity : AppCompatActivity(), IChatView {
         toolbar = findViewById(R.id.chat_toolbar)
         nameLabel = findViewById(R.id.chat_name_label)
         professionLabel = findViewById(R.id.chat_profession_label)
+        avatarImage = findViewById(R.id.chat_avatar)
 
         messageField = findViewById(R.id.message_field)
         sendButton = findViewById(R.id.chat_send_button)
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.reverseLayout = true
+//        linearLayoutManager.stackFromEnd = true
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
+        messageList.layoutManager = linearLayoutManager
 
         addListeners()
 
@@ -82,6 +91,8 @@ class ChatActivity : AppCompatActivity(), IChatView {
     override fun accountFetched(acc: Account?) {
         if (acc != null) {
             otherAcc = acc
+            nameLabel.text = acc.name
+            professionLabel.text = acc.profession
             presenter.fetchConversationWith(acc.id!!)
         }
     }
@@ -91,7 +102,7 @@ class ChatActivity : AppCompatActivity(), IChatView {
     }
 
     override fun onNewMessages(newList: ArrayList<Message>) {
-        listAdapter.updateData(newList)
+        listAdapter.updateData(ArrayList(newList.sortedByDescending { it.timestamp }))
     }
 
     override fun messagesFetched(messages: ArrayList<Message>) {
@@ -106,7 +117,7 @@ class ChatActivity : AppCompatActivity(), IChatView {
             Log.d("chat activity","conversation fetched with messages${conv.messages?.size}")
             this.conv = conv
             if (conv.messages != null) {
-                listAdapter.updateData(ArrayList(conv.messages!!.values))
+                listAdapter.updateData(ArrayList(conv.messages!!.values.sortedByDescending { it.timestamp }))
             }
         }
     }

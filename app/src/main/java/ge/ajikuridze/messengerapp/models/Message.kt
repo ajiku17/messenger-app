@@ -9,31 +9,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @IgnoreExtraProperties
-@kotlinx.parcelize.Parcelize
+@Parcelize
 class Message(
     @get:Exclude
     var convUid: String? = null,
     var sender: String? = null,
-    @get:Exclude
-    var sent: Boolean? = true,
-    val timestamp: Long? = Calendar.getInstance().timeInMillis,
     val text: String? = null,
+    @set:Exclude
+    var sent: Boolean? = null,
+    val timestamp: Long? = Calendar.getInstance().timeInMillis,
 ) : Parcelable {
 
-
-    @IgnoredOnParcel
-    private val formatter = SimpleDateFormat("hh:mm")
-
-    @Exclude
-    fun getTimeAsCalendar(): Calendar {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = timestamp!!
-
-        return calendar
-    }
-
-    @Exclude
-    fun getFormattedTime(): String {
-        return formatter.format(timestamp)
-    }
 }

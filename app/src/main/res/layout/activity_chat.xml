@@ -73,7 +73,8 @@
         android:layout_marginBottom="@dimen/chat_message_field_height"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:listitem="@layout/message_item_sent"/>
 
 
     <com.google.android.material.bottomappbar.BottomAppBar

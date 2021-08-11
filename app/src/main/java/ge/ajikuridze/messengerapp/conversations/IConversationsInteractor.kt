@@ -1,5 +1,5 @@
 package ge.ajikuridze.messengerapp.conversations
 
 interface IConversationsInteractor {
-    fun fetchConversations()
+    fun fetchConversations(filterStr: String?)
 }

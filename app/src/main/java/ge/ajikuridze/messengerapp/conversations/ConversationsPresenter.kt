@@ -7,10 +7,14 @@ class ConversationsPresenter(var view: IConversationsView): IConversationsPresen
     private val interactor = ConversationsInteractor(this)
 
     override fun fetchConversations() {
-        interactor.fetchConversations()
+        interactor.fetchConversations(null)
     }
 
     override fun conversationsFetched(data: ArrayList<ConversationPreview>) {
         view.conversationsFetched(data)
+    }
+
+    override fun filterConversations(filterStr: String) {
+        interactor.fetchConversations(filterStr)
     }
 }

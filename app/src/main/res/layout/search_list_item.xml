@@ -9,7 +9,7 @@
         android:id="@+id/search_item_avatar"
         android:layout_width="@dimen/coversation_item_avatar_size"
         android:layout_height="@dimen/coversation_item_avatar_size"
-        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
         android:layout_marginTop="@dimen/margin"
         android:src="@drawable/avatar_image_placeholder"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,6 @@
         android:textSize="@dimen/conversation_item_name_size"
         app:layout_constraintStart_toEndOf="@+id/search_item_avatar"
         app:layout_constraintTop_toTopOf="@+id/search_item_avatar"
-        android:layout_marginLeft="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
         android:textColor="@color/black"/>
 
