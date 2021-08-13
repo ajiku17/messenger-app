@@ -13,8 +13,23 @@ import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.conversations.ConversationsListAdapter
 import ge.ajikuridze.messengerapp.login.SignInActivity
 import ge.ajikuridze.messengerapp.models.Account
+import android.content.Intent
+import android.provider.MediaStore
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import android.graphics.BitmapFactory
+import android.content.ContentResolver
 
-class ProfileFragment : Fragment(), IProfileView {
+
+import android.app.Activity.RESULT_OK
+import android.content.Context
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.net.Uri
+import java.io.InputStream
+
+
+class ProfileFragment() : Fragment(), IProfileView {
 
     private var presenter: IProfilePresenter = ProfilePresenter(this)
     private lateinit var profilePicture: ImageView
@@ -49,13 +64,44 @@ class ProfileFragment : Fragment(), IProfileView {
         if (acc != null) {
             nameField.text = acc.name
             professionField.text = acc.profession
+            presenter.fetchAvatar()
         }
+    }
+
+    override fun avatarFetched(localUri: Uri?) {
+        if (localUri != null) {
+            setAvatarFromLocal(localUri)
+        }
+
+        // disable loader
     }
 
     override fun accountUpdated(result: Boolean) {
         Log.i("profile", "updated woooo")
     }
 
+    override fun avatarUpdated(localUri: Uri?) {
+        if (localUri != null) {
+            setAvatarFromLocal(localUri)
+        }
+    }
+
+    private fun setAvatarFromLocal(localUri: Uri) {
+        val imageStream: InputStream = context?.contentResolver?.openInputStream(localUri) ?: return
+        val selectedImage: Bitmap = BitmapFactory.decodeStream(imageStream)
+        profilePicture.setImageBitmap(selectedImage)
+    }
+
+    val getContent: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        Log.i("profile", "activity result got")
+        if (it.resultCode == RESULT_OK && null != it.data) {
+            val imagePath: Uri = it.data!!.getData() ?: return@registerForActivityResult
+
+            presenter.updateAccountAvatar(imagePath)
+        }
+    }
+
+    val RESULT_LOAD_IMAGE = 1
     private fun initListeners() {
         signOut.setOnClickListener {
             presenter.signOut()
@@ -63,6 +109,14 @@ class ProfileFragment : Fragment(), IProfileView {
         }
         updateButton.setOnClickListener {
             presenter.updateAccount(nameField.text.toString(), professionField.text.toString())
+        }
+        profilePicture.setOnClickListener {
+            val i = Intent(
+                Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+//            i.setType("image/*");
+            getContent.launch(i)
+//            startActivityForResult(i, RESULT_LOAD_IMAGE)
         }
     }
 
