@@ -1,5 +1,8 @@
 package ge.ajikuridze.messengerapp.conversations
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import androidx.core.content.contentValuesOf
 import com.google.firebase.auth.FirebaseAuth
@@ -7,15 +10,19 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.ConversationPreview
+import java.io.File
+import java.io.InputStream
 
 class ConversationsInteractor(var presenter: IConversationsPresenter): IConversationsInteractor {
 
     private var auth: FirebaseAuth = Firebase.auth
     private var accounts = Firebase.database.getReference("accounts")
     private var conversationsdb = Firebase.database.getReference("conversations")
+    private var imageStore = FirebaseStorage.getInstance().getReference("images")
 
     override fun fetchConversations(filterStr: String?) {
         accounts.child(auth.currentUser?.uid!!).get().addOnSuccessListener { userSnapshot ->
@@ -38,9 +45,8 @@ class ConversationsInteractor(var presenter: IConversationsPresenter): IConversa
                                 if (filterStr == null || otherAccount.name!!.contains(filterStr)) {
                                     val preview =
                                         conv.lastMessage?.let {
-                                            ConversationPreview(otherAccount, it)
+                                            ConversationPreview(otherAcc = otherAccount, message = it)
                                         }
-
                                     if (preview != null) {
                                         conversationPreviews.add(conversationPreviews.size, preview)
                                     }
@@ -61,6 +67,18 @@ class ConversationsInteractor(var presenter: IConversationsPresenter): IConversa
             }
         }.addOnFailureListener {
             Log.d("conversations", "fetch error")
+        }
+    }
+
+    override fun fetchAvatarOf(id: String) {
+        var localFile = File.createTempFile(id, "jgp")
+
+        imageStore.child(id).getFile(localFile).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                presenter.avatarFetched(localFile, id)
+            } else {
+                presenter.avatarFetched(null, id)
+            }
         }
     }
 

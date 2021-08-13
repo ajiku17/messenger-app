@@ -1,5 +1,9 @@
 package ge.ajikuridze.messengerapp.conversations
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +12,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.Utils
-import ge.ajikuridze.messengerapp.chat.ChatActivity
-import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.ConversationPreview
+import java.io.InputStream
 
-class ConversationsListAdapter(val listener: ConversationItemClickListener,
+class ConversationsListAdapter(val listener: ConversationItemListener,
                                private var data :ArrayList<ConversationPreview>):
     RecyclerView.Adapter<ConversationsListItemViewHolder>() {
 
@@ -32,9 +35,15 @@ class ConversationsListAdapter(val listener: ConversationItemClickListener,
         holder.lastMessage.text = conv.message.text
         holder.lastMessageDate.text = Utils.formatTime(conv.message.timestamp!!)
 
+        if (conv.avatarBitmap != null) {
+            holder.avatar.setImageBitmap(conv.avatarBitmap)
+        }
+
         holder.itemView.setOnClickListener {
             listener.conversationItemClicked(conv)
         }
+
+        listener.viewBinded(position, conv)
     }
 
     override fun getItemCount(): Int {
@@ -44,6 +53,11 @@ class ConversationsListAdapter(val listener: ConversationItemClickListener,
     fun updateData(newData :ArrayList<ConversationPreview>) {
         data = newData
         notifyDataSetChanged()
+    }
+
+    fun updateItem(conv: ConversationPreview, position: Int) {
+        data[position] = conv
+        notifyItemChanged(position)
     }
 
 }
