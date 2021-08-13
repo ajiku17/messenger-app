@@ -2,29 +2,28 @@ package ge.ajikuridze.messengerapp.search
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
-import ge.ajikuridze.messengerapp.MainActivity
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.chat.ChatActivity
-import ge.ajikuridze.messengerapp.conversations.ConversationsListAdapter
-import ge.ajikuridze.messengerapp.conversations.ConversationsPresenter
-import ge.ajikuridze.messengerapp.conversations.IConversationsPresenter
 import ge.ajikuridze.messengerapp.models.Account
-import java.util.*
+import java.io.File
+import java.io.InputStream
 import kotlin.collections.ArrayList
 
-class SearchActivity : AppCompatActivity(), ISearchView, SearchListClickListener {
+class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener {
 
     private lateinit var searchList: RecyclerView
     private lateinit var listAdapter: SearchListAdapter
+    private var data: ArrayList<Account> = arrayListOf()
     private lateinit var searchField: EditText
     private lateinit var backButton: ImageButton
 
@@ -50,6 +49,7 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListClickListener
 
     override fun filteredAccounts(data: ArrayList<Account>) {
         disableLoader()
+        this.data = data
         listAdapter.updateData(data)
     }
 
@@ -91,5 +91,23 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListClickListener
         ChatActivity.start(this, acc.id!!)
     }
 
+    override fun viewBinded(position: Int, acc: Account) {
+        if (acc.avatarBitmap == null) {
+            presenter.fetchAvatarOf(acc.id!!)
+        }
+    }
+
+    override fun avatarFetched(file: File?, id: String) {
+        if (file != null) {
+            val imageStream: InputStream = this.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
+            val image: Bitmap = BitmapFactory.decodeStream(imageStream)
+            for (i in data.indices) {
+                if (data[i].id!! == id) {
+                    data[i].avatarBitmap = image
+                    listAdapter.updateItem(data[i], i)
+                }
+            }
+        }
+    }
 
 }

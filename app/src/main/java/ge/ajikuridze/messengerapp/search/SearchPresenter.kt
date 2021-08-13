@@ -1,6 +1,7 @@
 package ge.ajikuridze.messengerapp.search
 
 import ge.ajikuridze.messengerapp.models.Account
+import java.io.File
 
 
 class SearchPresenter(val view: ISearchView): ISearchPresenter {
@@ -13,5 +14,13 @@ class SearchPresenter(val view: ISearchView): ISearchPresenter {
 
     override fun filteredAccounts(filterStr: String, accounts: ArrayList<Account>) {
         view.filteredAccounts(accounts)
+    }
+
+    override fun fetchAvatarOf(id: String) {
+        interactor.fetchAvatarOf(id)
+    }
+
+    override fun avatarFetched(file: File?, id: String) {
+        view.avatarFetched(file, id)
     }
 }

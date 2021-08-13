@@ -1,17 +1,15 @@
 package ge.ajikuridze.messengerapp.search
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.models.Account
 
-class SearchListAdapter(private val listener: SearchListClickListener,
+class SearchListAdapter(private val listener: SearchListItemListener,
                         var data: ArrayList<Account>): RecyclerView.Adapter<SearchListItemViewHolder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchListItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_list_item, parent, false)
@@ -25,9 +23,15 @@ class SearchListAdapter(private val listener: SearchListClickListener,
         holder.name.text = acc.name
         holder.profession.text = acc.profession
 
+        if (acc.avatarBitmap != null) {
+            holder.avatar.setImageBitmap(acc.avatarBitmap)
+        }
+
         holder.itemView.setOnClickListener {
             listener.accountClicked(acc)
         }
+
+        listener.viewBinded(position, acc)
     }
 
     override fun getItemCount(): Int {
@@ -39,10 +43,15 @@ class SearchListAdapter(private val listener: SearchListClickListener,
         notifyDataSetChanged()
     }
 
+    fun updateItem(acc: Account, position: Int) {
+        data[position] = acc
+        notifyItemChanged(position)
+    }
+
 }
 
 class SearchListItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
-//    var avatar: EditText = view.findViewById(R.id.search_item_avatar)
+    var avatar: ImageView = view.findViewById(R.id.search_item_avatar)
     var name: TextView = view.findViewById(R.id.search_item_name)
     var profession: TextView = view.findViewById(R.id.search_item_profession)
 }
