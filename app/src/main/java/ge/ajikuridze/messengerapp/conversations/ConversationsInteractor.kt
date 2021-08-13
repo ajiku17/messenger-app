@@ -11,18 +11,20 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import ge.ajikuridze.messengerapp.avatarfetcher.AvatarFetcher
+import ge.ajikuridze.messengerapp.avatarfetcher.AvatarListener
 import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 import java.io.File
 import java.io.InputStream
 
-class ConversationsInteractor(var presenter: IConversationsPresenter): IConversationsInteractor {
+class ConversationsInteractor(var presenter: IConversationsPresenter): IConversationsInteractor, AvatarListener {
 
     private var auth: FirebaseAuth = Firebase.auth
     private var accounts = Firebase.database.getReference("accounts")
     private var conversationsdb = Firebase.database.getReference("conversations")
-    private var imageStore = FirebaseStorage.getInstance().getReference("images")
+    private var avatarFetcher: AvatarFetcher = AvatarFetcher(this)
 
     override fun fetchConversations(filterStr: String?) {
         accounts.child(auth.currentUser?.uid!!).get().addOnSuccessListener { userSnapshot ->
@@ -71,15 +73,11 @@ class ConversationsInteractor(var presenter: IConversationsPresenter): IConversa
     }
 
     override fun fetchAvatarOf(id: String) {
-        var localFile = File.createTempFile(id, "jgp")
+        avatarFetcher.fetchAvatarById(id)
+    }
 
-        imageStore.child(id).getFile(localFile).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                presenter.avatarFetched(localFile, id)
-            } else {
-                presenter.avatarFetched(null, id)
-            }
-        }
+    override fun avatarFetched(file: File?, id: String) {
+        presenter.avatarFetched(file, id)
     }
 
 }

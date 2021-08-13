@@ -9,14 +9,19 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import ge.ajikuridze.messengerapp.avatarfetcher.AvatarFetcher
+import ge.ajikuridze.messengerapp.avatarfetcher.AvatarListener
 import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.Message
+import java.io.File
 
-class ChatInteractor(var presenter: IChatPresenter): IChatInteractor {
+class ChatInteractor(var presenter: IChatPresenter): IChatInteractor, AvatarListener {
 
     private val conversations = FirebaseDatabase.getInstance().getReference("conversations")
     private val accounts = FirebaseDatabase.getInstance().getReference("accounts")
+    private val avatarFetcher: AvatarFetcher = AvatarFetcher(this)
     private val auth = Firebase.auth
 
     private fun addMessagesValueListener(convUid: String) {
@@ -121,6 +126,14 @@ class ChatInteractor(var presenter: IChatPresenter): IChatInteractor {
 
         conversations.child(convUid).child("lastMessage").setValue(message)
         conversations.child(convUid).child("messages").push().setValue(message)
+    }
+
+    override fun fetchAvatarOf(id: String) {
+        avatarFetcher.fetchAvatarById(id)
+    }
+
+    override fun avatarFetched(file: File?, id: String) {
+        presenter.avatarFetched(file, id)
     }
 
 }

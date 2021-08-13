@@ -8,4 +8,5 @@ interface IChatInteractor {
     fun createNewConversationWith(otherAccountId: String)
     fun fetchConversationWith(accId: String)
     fun sendMessage(message: Message)
+    fun fetchAvatarOf(id: String)
 }

@@ -2,6 +2,9 @@ package ge.ajikuridze.messengerapp.chat
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +17,8 @@ import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.Message
 import androidx.recyclerview.widget.LinearLayoutManager
-
-
+import java.io.File
+import java.io.InputStream
 
 
 class ChatActivity : AppCompatActivity(), IChatView {
@@ -94,7 +97,19 @@ class ChatActivity : AppCompatActivity(), IChatView {
             nameLabel.text = acc.name
             professionLabel.text = acc.profession
             presenter.fetchConversationWith(acc.id!!)
+            presenter.fetchAvatarOf(acc.id!!)
         }
+    }
+
+    override fun avatarFetched(file: File?, id: String) {
+        if (file != null) {
+            val imageStream: InputStream =
+                this.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
+            val image: Bitmap = BitmapFactory.decodeStream(imageStream)
+            avatarImage.setImageBitmap(image)
+        }
+        
+        //disable loader
     }
 
     override fun conversationCreated(convId: String, accId: String) {

@@ -3,6 +3,7 @@ package ge.ajikuridze.messengerapp.chat
 import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.Message
+import java.io.File
 
 class ChatPresenter(var view: IChatView): IChatPresenter {
     private var interactor: IChatInteractor = ChatInteractor(this)
@@ -45,6 +46,14 @@ class ChatPresenter(var view: IChatView): IChatPresenter {
 
     override fun onNewMessages(newList: ArrayList<Message>) {
         view.onNewMessages(newList)
+    }
+
+    override fun fetchAvatarOf(id: String) {
+        interactor.fetchAvatarOf(id)
+    }
+
+    override fun avatarFetched(file: File?, id: String) {
+        view.avatarFetched(file, id)
     }
 
 }
