@@ -30,7 +30,8 @@ class ConversationsInteractor(var presenter: IConversationsPresenter): IConversa
         accounts.child(auth.currentUser?.uid!!).get().addOnSuccessListener { userSnapshot ->
             val currentUser = userSnapshot.getValue<Account>()
 
-            currentUser?.convToUserId?.let { currentConversations ->
+            if (currentUser?.convToUserId != null) {
+                val currentConversations = currentUser.convToUserId!!
                 conversationsdb.get().addOnSuccessListener { convSnap ->
                     val convs = convSnap.getValue<Map<String, Conversation>>()?.filter { (convId, _) ->
                             currentConversations.containsKey(convId)
@@ -62,13 +63,16 @@ class ConversationsInteractor(var presenter: IConversationsPresenter): IConversa
                     }
 
 
-                    }
-                    .addOnFailureListener {
+                    } .addOnFailureListener {
+                        presenter.conversationsFetched(arrayListOf())
                         Log.d("conversations", "failed to fetch ")
                     }
+            } else {
+                presenter.conversationsFetched(arrayListOf())
             }
         }.addOnFailureListener {
             Log.d("conversations", "fetch error")
+            presenter.conversationsFetched(arrayListOf())
         }
     }
 
