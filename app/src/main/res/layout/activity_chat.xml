@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".chat.ChatActivity">
 
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/loader_size"
+        android:layout_height="@dimen/loader_size"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/sky"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

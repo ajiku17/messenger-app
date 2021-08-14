@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.chat.ChatActivity
@@ -26,6 +28,7 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
     private var data: ArrayList<Account> = arrayListOf()
     private lateinit var searchField: EditText
     private lateinit var backButton: ImageButton
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var loader: Any
 
@@ -38,12 +41,14 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
         searchList = findViewById(R.id.search_list)
         searchField = findViewById(R.id.search_field)
         backButton = findViewById(R.id.back_button)
+        progressBar = findViewById(R.id.progress_bar)
 
         listAdapter = SearchListAdapter(this, arrayListOf())
         searchList.adapter = listAdapter
 
         setListeners()
 
+        disableLoader()
         // init initial view
     }
 
@@ -51,6 +56,7 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
         disableLoader()
         this.data = data
         listAdapter.updateData(data)
+        disableLoader()
     }
 
 
@@ -65,8 +71,12 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
             override fun onTextChanged(s: CharSequence, start: Int,  before: Int, count: Int) {
                 if (s.length >= 3) {
                     presenter.filterAccounts(s.toString())
+                    showLoader()
+                } else {
+                    disableLoader()
+                    data = arrayListOf()
+                    listAdapter.updateData(arrayListOf())
                 }
-                showLoader()
             }
 
             override fun afterTextChanged(editable: Editable) {}
@@ -74,11 +84,12 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
     }
 
     fun showLoader() {
+        progressBar.visibility = View.VISIBLE
 
     }
 
     fun disableLoader() {
-
+        progressBar.visibility = View.INVISIBLE
     }
 
     companion object {
@@ -98,14 +109,18 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
     }
 
     override fun avatarFetched(file: File?, id: String) {
+        val image: Bitmap
         if (file != null) {
             val imageStream: InputStream = this.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
-            val image: Bitmap = BitmapFactory.decodeStream(imageStream)
-            for (i in data.indices) {
-                if (data[i].id!! == id) {
-                    data[i].avatarBitmap = image
-                    listAdapter.updateItem(data[i], i)
-                }
+            image = BitmapFactory.decodeStream(imageStream)
+        } else {
+            image = BitmapFactory.decodeResource(resources, R.drawable.avatar_image_placeholder)
+        }
+
+        for (i in data.indices) {
+            if (data[i].id!! == id) {
+                data[i].avatarBitmap = image
+                listAdapter.updateItem(data[i], i)
             }
         }
     }

@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -29,6 +30,7 @@ class ChatActivity : AppCompatActivity(), IChatView {
     private lateinit var professionLabel: TextView
     private lateinit var avatarImage: ImageView
     private lateinit var toolbar: MaterialToolbar
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var messageField: EditText
     private lateinit var sendButton: ImageButton
@@ -54,13 +56,13 @@ class ChatActivity : AppCompatActivity(), IChatView {
         nameLabel = findViewById(R.id.chat_name_label)
         professionLabel = findViewById(R.id.chat_profession_label)
         avatarImage = findViewById(R.id.chat_avatar)
+        progressBar = findViewById(R.id.progress_bar)
 
         messageField = findViewById(R.id.message_field)
         sendButton = findViewById(R.id.chat_send_button)
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.reverseLayout = true
-//        linearLayoutManager.stackFromEnd = true
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         messageList.layoutManager = linearLayoutManager
 
@@ -134,6 +136,7 @@ class ChatActivity : AppCompatActivity(), IChatView {
             if (conv.messages != null) {
                 listAdapter.updateData(ArrayList(conv.messages!!.values.sortedByDescending { it.timestamp }))
             }
+            progressBar.visibility = View.INVISIBLE
         }
     }
 

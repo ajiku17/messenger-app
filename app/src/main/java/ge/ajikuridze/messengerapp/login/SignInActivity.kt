@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import ge.ajikuridze.messengerapp.MainActivity
@@ -22,9 +23,9 @@ class SignInActivity : AppCompatActivity(), ILoginView {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        FirebaseApp.initializeApp(this)
         presenter = AccountPresenter(this)
 
+        disableLoader()
         initListeners()
         if (presenter.isUserLoggedIn()) {
             MainActivity.start(this)
@@ -40,6 +41,7 @@ class SignInActivity : AppCompatActivity(), ILoginView {
             val name = binding.nicknameField.text.toString()
             val pass = binding.passwordField.text.toString()
 
+            enableLoader()
             presenter.loginUser(name, pass)
         }
     }
@@ -47,6 +49,7 @@ class SignInActivity : AppCompatActivity(), ILoginView {
     override fun currentUserFetched(account: Account?) {}
 
     override fun onLoginResult(result: Boolean) {
+        disableLoader()
         if (result) {
             MainActivity.start(this)
         } else {
@@ -58,6 +61,14 @@ class SignInActivity : AppCompatActivity(), ILoginView {
 
     fun showError(msg :String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    fun enableLoader() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    fun disableLoader() {
+        binding.progressBar.visibility = View.INVISIBLE
     }
 
     companion object {

@@ -26,6 +26,7 @@ import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
+import android.widget.ProgressBar
 import java.io.InputStream
 
 
@@ -35,6 +36,7 @@ class ProfileFragment() : Fragment(), IProfileView {
     private lateinit var profilePicture: ImageView
     private lateinit var nameField: TextView
     private lateinit var professionField: TextView
+    private lateinit var progressBar: ProgressBar
     private lateinit var signOut: Button
     private lateinit var updateButton: Button
 
@@ -54,6 +56,7 @@ class ProfileFragment() : Fragment(), IProfileView {
         professionField = view.findViewById(R.id.profession_field)
         signOut = view.findViewById(R.id.sign_out)
         updateButton = view.findViewById(R.id.update_button)
+        progressBar = view.findViewById(R.id.progress_bar)
 
         initListeners()
 
@@ -72,12 +75,14 @@ class ProfileFragment() : Fragment(), IProfileView {
         if (localUri != null) {
             setAvatarFromLocal(localUri)
         }
-
+        progressBar.visibility = View.INVISIBLE
         // disable loader
     }
 
     override fun accountUpdated(result: Boolean) {
         Log.i("profile", "updated woooo")
+        progressBar.visibility = View.INVISIBLE
+
     }
 
     override fun avatarUpdated(localUri: Uri?) {
@@ -108,9 +113,11 @@ class ProfileFragment() : Fragment(), IProfileView {
             SignInActivity.start(this.requireContext())
         }
         updateButton.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
             presenter.updateAccount(nameField.text.toString(), professionField.text.toString())
         }
         profilePicture.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
             val i = Intent(
                 Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             )

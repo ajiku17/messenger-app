@@ -10,6 +10,7 @@
     <dimen name="chat_header_height">60dp</dimen>
     <dimen name="chat_message_field_height">60dp</dimen>
     <dimen name="coversation_item_avatar_size">80dp</dimen>
+    <dimen name="loader_size">50dp</dimen>
 
     <dimen name="conversation_item_name_size">18sp</dimen>
 

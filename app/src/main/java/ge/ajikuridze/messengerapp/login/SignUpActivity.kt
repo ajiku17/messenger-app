@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import ge.ajikuridze.messengerapp.MainActivity
 import ge.ajikuridze.messengerapp.R
@@ -21,6 +22,7 @@ class SignUpActivity : AppCompatActivity(), ILoginView {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        disableLoader()
         initListeners()
     }
 
@@ -35,6 +37,7 @@ class SignUpActivity : AppCompatActivity(), ILoginView {
                 profession = profession
             )
 
+            enableLoader()
             presenter.registerUser(acc, pass)
         }
     }
@@ -49,11 +52,20 @@ class SignUpActivity : AppCompatActivity(), ILoginView {
         }
     }
 
+    fun enableLoader() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    fun disableLoader() {
+        binding.progressBar.visibility = View.INVISIBLE
+    }
+
     override fun currentUserFetched(account: Account?) {}
 
     override fun onLoginResult(result: Boolean) {}
 
     override fun userRegistered(accunt: Account?, result: Boolean) {
+        disableLoader()
         if (result) {
             MainActivity.start(this)
         } else {

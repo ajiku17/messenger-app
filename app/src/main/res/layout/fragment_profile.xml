@@ -81,4 +81,17 @@
         app:layout_constraintTop_toBottomOf="@+id/update_button"
         app:strokeColor="@color/gray_dark" />
 
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/loader_size"
+        android:layout_height="@dimen/loader_size"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/sky"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

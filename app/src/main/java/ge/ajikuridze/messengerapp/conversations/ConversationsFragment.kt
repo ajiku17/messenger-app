@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
@@ -21,6 +22,7 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
 
     private lateinit var conversationsList: RecyclerView
     private lateinit var listAdapter: ConversationsListAdapter
+    private lateinit var progressBar: ProgressBar
     private var data :ArrayList<ConversationPreview> = arrayListOf()
     private lateinit var searchField: EditText
 
@@ -39,6 +41,7 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
 
         conversationsList = view.findViewById(R.id.converations)
         searchField = view.findViewById(R.id.conversation_search)
+        progressBar = view.findViewById(R.id.progress_bar)
 
         listAdapter = ConversationsListAdapter(this, arrayListOf())
         conversationsList.adapter = listAdapter
@@ -58,11 +61,13 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
     override fun conversationsFetched(data: ArrayList<ConversationPreview>) {
         this.data = data
         updateConversations(this.data)
+        progressBar.visibility = View.INVISIBLE
     }
 
     fun updateConversations(data: ArrayList<ConversationPreview>) {
         this.data = data
         listAdapter.updateData(this.data)
+        progressBar.visibility = View.INVISIBLE
     }
 
     override fun conversationItemClicked(preview: ConversationPreview) {
