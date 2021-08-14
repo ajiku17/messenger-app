@@ -53,11 +53,11 @@ class SignUpActivity : AppCompatActivity(), ILoginView {
     }
 
     fun enableLoader() {
-        binding.progressBar.visibility = View.VISIBLE
+        binding.signUpProgressBar.visibility = View.VISIBLE
     }
 
     fun disableLoader() {
-        binding.progressBar.visibility = View.INVISIBLE
+        binding.signUpProgressBar.visibility = View.INVISIBLE
     }
 
     override fun currentUserFetched(account: Account?) {}

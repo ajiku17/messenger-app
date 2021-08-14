@@ -37,6 +37,7 @@ class ProfileFragment() : Fragment(), IProfileView {
     private lateinit var nameField: TextView
     private lateinit var professionField: TextView
     private lateinit var progressBar: ProgressBar
+    private lateinit var avatarProgressBar: ProgressBar
     private lateinit var signOut: Button
     private lateinit var updateButton: Button
 
@@ -56,8 +57,11 @@ class ProfileFragment() : Fragment(), IProfileView {
         professionField = view.findViewById(R.id.profession_field)
         signOut = view.findViewById(R.id.sign_out)
         updateButton = view.findViewById(R.id.update_button)
-        progressBar = view.findViewById(R.id.progress_bar)
+        progressBar = view.findViewById(R.id.profile_progress_bar)
+        avatarProgressBar = view.findViewById(R.id.profile_avatar_progress_bar)
 
+        avatarProgressBar.visibility = View.VISIBLE
+        profilePicture.visibility = View.INVISIBLE
         initListeners()
 
         presenter.fetchCurrentUser()
@@ -67,6 +71,7 @@ class ProfileFragment() : Fragment(), IProfileView {
         if (acc != null) {
             nameField.text = acc.name
             professionField.text = acc.profession
+            progressBar.visibility = View.INVISIBLE
             presenter.fetchAvatar()
         }
     }
@@ -75,19 +80,20 @@ class ProfileFragment() : Fragment(), IProfileView {
         if (localUri != null) {
             setAvatarFromLocal(localUri)
         }
-        progressBar.visibility = View.INVISIBLE
-        // disable loader
+        avatarProgressBar.visibility = View.INVISIBLE
+        profilePicture.visibility = View.VISIBLE
     }
 
     override fun accountUpdated(result: Boolean) {
         Log.i("profile", "updated woooo")
         progressBar.visibility = View.INVISIBLE
-
     }
 
     override fun avatarUpdated(localUri: Uri?) {
         if (localUri != null) {
             setAvatarFromLocal(localUri)
+            avatarProgressBar.visibility = View.INVISIBLE
+            profilePicture.visibility = View.VISIBLE
         }
     }
 
@@ -117,13 +123,12 @@ class ProfileFragment() : Fragment(), IProfileView {
             presenter.updateAccount(nameField.text.toString(), professionField.text.toString())
         }
         profilePicture.setOnClickListener {
-            progressBar.visibility = View.VISIBLE
+            avatarProgressBar.visibility = View.VISIBLE
+            profilePicture.visibility = View.INVISIBLE
             val i = Intent(
                 Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             )
-//            i.setType("image/*");
             getContent.launch(i)
-//            startActivityForResult(i, RESULT_LOAD_IMAGE)
         }
     }
 

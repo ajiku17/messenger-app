@@ -41,7 +41,7 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
         searchList = findViewById(R.id.search_list)
         searchField = findViewById(R.id.search_field)
         backButton = findViewById(R.id.back_button)
-        progressBar = findViewById(R.id.progress_bar)
+        progressBar = findViewById(R.id.search_progress_bar)
 
         listAdapter = SearchListAdapter(this, arrayListOf())
         searchList.adapter = listAdapter
@@ -53,7 +53,6 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
     }
 
     override fun filteredAccounts(data: ArrayList<Account>) {
-        disableLoader()
         this.data = data
         listAdapter.updateData(data)
         disableLoader()
@@ -69,13 +68,13 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int,  before: Int, count: Int) {
+                data = arrayListOf()
+                listAdapter.updateData(arrayListOf())
                 if (s.length >= 3) {
                     presenter.filterAccounts(s.toString())
                     showLoader()
                 } else {
                     disableLoader()
-                    data = arrayListOf()
-                    listAdapter.updateData(arrayListOf())
                 }
             }
 

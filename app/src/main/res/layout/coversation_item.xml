@@ -13,7 +13,20 @@
         android:layout_marginTop="@dimen/margin"
         android:src="@drawable/avatar_image_placeholder"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/conversation_item_avatar_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/sky"
+        app:layout_constraintBottom_toBottomOf="@+id/conversations_item_avatar"
+        app:layout_constraintEnd_toEndOf="@+id/conversations_item_avatar"
+        app:layout_constraintStart_toStartOf="@+id/conversations_item_avatar"
+        app:layout_constraintTop_toTopOf="@+id/conversations_item_avatar"
+        />
 
 
     <TextView

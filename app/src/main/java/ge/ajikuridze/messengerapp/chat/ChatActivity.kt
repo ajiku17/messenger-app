@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.firebase.FirebaseApp
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
@@ -31,6 +30,7 @@ class ChatActivity : AppCompatActivity(), IChatView {
     private lateinit var avatarImage: ImageView
     private lateinit var toolbar: MaterialToolbar
     private lateinit var progressBar: ProgressBar
+    private lateinit var avatarProgressBar: ProgressBar
 
     private lateinit var messageField: EditText
     private lateinit var sendButton: ImageButton
@@ -56,7 +56,8 @@ class ChatActivity : AppCompatActivity(), IChatView {
         nameLabel = findViewById(R.id.chat_name_label)
         professionLabel = findViewById(R.id.chat_profession_label)
         avatarImage = findViewById(R.id.chat_avatar)
-        progressBar = findViewById(R.id.progress_bar)
+        progressBar = findViewById(R.id.chat_progress_bar)
+        avatarProgressBar = findViewById(R.id.chat_avatar_progress_bar)
 
         messageField = findViewById(R.id.message_field)
         sendButton = findViewById(R.id.chat_send_button)
@@ -65,6 +66,9 @@ class ChatActivity : AppCompatActivity(), IChatView {
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         messageList.layoutManager = linearLayoutManager
+
+        avatarImage.visibility = View.INVISIBLE
+        avatarProgressBar.visibility = View.VISIBLE
 
         addListeners()
 
@@ -104,14 +108,17 @@ class ChatActivity : AppCompatActivity(), IChatView {
     }
 
     override fun avatarFetched(file: File?, id: String) {
+        val image: Bitmap
         if (file != null) {
             val imageStream: InputStream =
                 this.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
-            val image: Bitmap = BitmapFactory.decodeStream(imageStream)
-            avatarImage.setImageBitmap(image)
+            image = BitmapFactory.decodeStream(imageStream)
+        } else {
+            image = BitmapFactory.decodeResource(resources, R.drawable.avatar_image_placeholder)
         }
-        
-        //disable loader
+        avatarImage.visibility = View.VISIBLE
+        avatarProgressBar.visibility = View.INVISIBLE
+        avatarImage.setImageBitmap(image)
     }
 
     override fun conversationCreated(convId: String, accId: String) {

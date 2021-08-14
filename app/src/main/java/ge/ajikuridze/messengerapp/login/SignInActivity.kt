@@ -64,11 +64,11 @@ class SignInActivity : AppCompatActivity(), ILoginView {
     }
 
     fun enableLoader() {
-        binding.progressBar.visibility = View.VISIBLE
+        binding.signInProgressBar.visibility = View.VISIBLE
     }
 
     fun disableLoader() {
-        binding.progressBar.visibility = View.INVISIBLE
+        binding.signInProgressBar.visibility = View.INVISIBLE
     }
 
     companion object {

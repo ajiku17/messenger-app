@@ -51,7 +51,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/search_progress_bar"
         android:layout_width="@dimen/loader_size"
         android:layout_height="@dimen/loader_size"
         android:layout_gravity="center"

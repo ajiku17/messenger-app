@@ -7,7 +7,7 @@
     tools:context=".conversations.ConversationsFragment">
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/conversations_progress_bar"
         android:layout_width="@dimen/loader_size"
         android:layout_height="@dimen/loader_size"
         android:layout_gravity="center"

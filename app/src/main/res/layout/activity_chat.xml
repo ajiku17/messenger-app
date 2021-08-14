@@ -8,7 +8,7 @@
 
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/chat_progress_bar"
         android:layout_width="@dimen/loader_size"
         android:layout_height="@dimen/loader_size"
         android:layout_gravity="center"
@@ -52,7 +52,20 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/avatar_image_placeholder"
-                        android:contentDescription="@string/avatar_desc" />
+                        android:contentDescription="@string/avatar_desc"
+                        android:visibility="invisible"/>
+
+                    <ProgressBar
+                        android:id="@+id/chat_avatar_progress_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/chat_avatar"
+                        app:layout_constraintEnd_toEndOf="@+id/chat_avatar"
+                        app:layout_constraintStart_toStartOf="@+id/chat_avatar"
+                        app:layout_constraintTop_toTopOf="@+id/chat_avatar"
+                        />
 
                     <TextView
                         android:id="@+id/chat_profession_label"

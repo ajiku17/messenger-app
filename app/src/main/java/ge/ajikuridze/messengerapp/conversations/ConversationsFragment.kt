@@ -41,7 +41,7 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
 
         conversationsList = view.findViewById(R.id.converations)
         searchField = view.findViewById(R.id.conversation_search)
-        progressBar = view.findViewById(R.id.progress_bar)
+        progressBar = view.findViewById(R.id.conversations_progress_bar)
 
         listAdapter = ConversationsListAdapter(this, arrayListOf())
         conversationsList.adapter = listAdapter
@@ -83,15 +83,19 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
     }
 
     override fun avatarFetched(file: File?, id: String) {
+        val image: Bitmap
         if (file != null) {
             val imageStream: InputStream =
                 context?.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
-            val image: Bitmap = BitmapFactory.decodeStream(imageStream)
-            for (i in data.indices) {
-                if (data[i].otherAcc.id!! == id) {
-                    data[i].avatarBitmap = image
-                    listAdapter.updateItem(data[i], i)
-                }
+            image = BitmapFactory.decodeStream(imageStream)
+        } else {
+            image = BitmapFactory.decodeResource(resources, R.drawable.avatar_image_placeholder)
+        }
+
+        for (i in data.indices) {
+            if (data[i].otherAcc.id!! == id) {
+                data[i].avatarBitmap = image
+                listAdapter.updateItem(data[i], i)
             }
         }
     }

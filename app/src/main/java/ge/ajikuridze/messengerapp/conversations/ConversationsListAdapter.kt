@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
@@ -34,9 +35,13 @@ class ConversationsListAdapter(val listener: ConversationItemListener,
         holder.name.text = conv.otherAcc.name
         holder.lastMessage.text = conv.message.text
         holder.lastMessageDate.text = Utils.formatTime(conv.message.timestamp!!)
+        holder.avatar.visibility = View.INVISIBLE
+        holder.loader.visibility = View.VISIBLE
 
         if (conv.avatarBitmap != null) {
             holder.avatar.setImageBitmap(conv.avatarBitmap)
+            holder.avatar.visibility = View.VISIBLE
+            holder.loader.visibility = View.INVISIBLE
         }
 
         holder.itemView.setOnClickListener {
@@ -68,4 +73,5 @@ class ConversationsListItemViewHolder(view: View): RecyclerView.ViewHolder(view)
     var name: TextView = view.findViewById(R.id.nameLabel)
     var lastMessage: TextView = view.findViewById(R.id.lastMessageLabel)
     var lastMessageDate: TextView = view.findViewById(R.id.lastMessageTimeLabel)
+    var loader: ProgressBar = view.findViewById(R.id.conversation_item_avatar_progress_bar)
 }
