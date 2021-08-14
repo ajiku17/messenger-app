@@ -1,5 +1,7 @@
 package ge.ajikuridze.messengerapp.search
 
+import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +9,11 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.models.Account
 
-class SearchListAdapter(private val listener: SearchListItemListener,
+class SearchListAdapter(val context: Context, private val listener: SearchListItemListener,
                         var data: ArrayList<Account>): RecyclerView.Adapter<SearchListItemViewHolder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchListItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_list_item, parent, false)
@@ -26,8 +29,8 @@ class SearchListAdapter(private val listener: SearchListItemListener,
         holder.avatar.visibility = View.INVISIBLE
         holder.loader.visibility = View.VISIBLE
 
-        if (acc.avatarBitmap != null) {
-            holder.avatar.setImageBitmap(acc.avatarBitmap)
+        if (acc.avatarUri != null) {
+            Glide.with(context).load(acc.avatarUri).circleCrop().into(holder.avatar)
             holder.avatar.visibility = View.VISIBLE
             holder.loader.visibility = View.INVISIBLE
         }

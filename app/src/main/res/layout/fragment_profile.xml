@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/avatar_image_placeholder"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"/>
 
     <ProgressBar
         android:id="@+id/profile_avatar_progress_bar"

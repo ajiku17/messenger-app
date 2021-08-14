@@ -15,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
+import ge.ajikuridze.messengerapp.Utils
 import ge.ajikuridze.messengerapp.chat.ChatActivity
 import ge.ajikuridze.messengerapp.models.Account
 import java.io.File
@@ -43,7 +44,7 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
         backButton = findViewById(R.id.back_button)
         progressBar = findViewById(R.id.search_progress_bar)
 
-        listAdapter = SearchListAdapter(this, arrayListOf())
+        listAdapter = SearchListAdapter(this, this, arrayListOf())
         searchList.adapter = listAdapter
 
         setListeners()
@@ -102,23 +103,22 @@ class SearchActivity : AppCompatActivity(), ISearchView, SearchListItemListener 
     }
 
     override fun viewBinded(position: Int, acc: Account) {
-        if (acc.avatarBitmap == null) {
+        if (acc.avatarUri == null) {
             presenter.fetchAvatarOf(acc.id!!)
         }
     }
 
     override fun avatarFetched(file: File?, id: String) {
-        val image: Bitmap
+        val localUri: Uri?
         if (file != null) {
-            val imageStream: InputStream = this.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
-            image = BitmapFactory.decodeStream(imageStream)
+            localUri = Uri.fromFile(file)
         } else {
-            image = BitmapFactory.decodeResource(resources, R.drawable.avatar_image_placeholder)
+            localUri = Utils.getUriToDrawable(this, R.drawable.avatar_image_placeholder)
         }
 
         for (i in data.indices) {
             if (data[i].id!! == id) {
-                data[i].avatarBitmap = image
+                data[i].avatarUri = localUri
                 listAdapter.updateItem(data[i], i)
             }
         }

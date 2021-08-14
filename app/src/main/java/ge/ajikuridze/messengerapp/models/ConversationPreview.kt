@@ -1,5 +1,5 @@
 package ge.ajikuridze.messengerapp.models
 
-import android.graphics.Bitmap
+import android.net.Uri
 
-data class ConversationPreview(var avatarBitmap: Bitmap? = null, var otherAcc: Account, var message: Message)
+data class ConversationPreview(var avatarUri: Uri? = null, var otherAcc: Account, var message: Message)

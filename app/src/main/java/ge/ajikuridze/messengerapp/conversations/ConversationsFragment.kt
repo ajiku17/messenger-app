@@ -13,6 +13,7 @@ import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import ge.ajikuridze.messengerapp.R
+import ge.ajikuridze.messengerapp.Utils
 import ge.ajikuridze.messengerapp.chat.ChatActivity
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 import java.io.File
@@ -43,7 +44,7 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
         searchField = view.findViewById(R.id.conversation_search)
         progressBar = view.findViewById(R.id.conversations_progress_bar)
 
-        listAdapter = ConversationsListAdapter(this, arrayListOf())
+        listAdapter = ConversationsListAdapter(requireContext(), this, arrayListOf())
         conversationsList.adapter = listAdapter
 
         searchField.addTextChangedListener {
@@ -77,24 +78,22 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
     }
 
     override fun viewBinded(position: Int, conv: ConversationPreview) {
-        if (conv.avatarBitmap == null) {
+        if (conv.avatarUri == null) {
             presenter.fetchAvatarOf(conv.otherAcc.id!!)
         }
     }
 
     override fun avatarFetched(file: File?, id: String) {
-        val image: Bitmap
+        val localUri: Uri
         if (file != null) {
-            val imageStream: InputStream =
-                context?.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
-            image = BitmapFactory.decodeStream(imageStream)
+            localUri = Uri.fromFile(file)
         } else {
-            image = BitmapFactory.decodeResource(resources, R.drawable.avatar_image_placeholder)
+            localUri = Utils.getUriToDrawable(requireContext(), R.drawable.avatar_image_placeholder)
         }
 
         for (i in data.indices) {
             if (data[i].otherAcc.id!! == id) {
-                data[i].avatarBitmap = image
+                data[i].avatarUri = localUri
                 listAdapter.updateItem(data[i], i)
             }
         }

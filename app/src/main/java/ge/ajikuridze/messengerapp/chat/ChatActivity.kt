@@ -17,6 +17,8 @@ import ge.ajikuridze.messengerapp.models.Account
 import ge.ajikuridze.messengerapp.models.Conversation
 import ge.ajikuridze.messengerapp.models.Message
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import ge.ajikuridze.messengerapp.Utils
 import java.io.File
 import java.io.InputStream
 
@@ -108,17 +110,16 @@ class ChatActivity : AppCompatActivity(), IChatView {
     }
 
     override fun avatarFetched(file: File?, id: String) {
-        val image: Bitmap
+        val localUri: Uri
         if (file != null) {
-            val imageStream: InputStream =
-                this.contentResolver?.openInputStream(Uri.fromFile(file)) ?: return
-            image = BitmapFactory.decodeStream(imageStream)
+            localUri = Uri.fromFile(file)
         } else {
-            image = BitmapFactory.decodeResource(resources, R.drawable.avatar_image_placeholder)
+            localUri = Utils.getUriToDrawable(this, R.drawable.avatar_image_placeholder)
         }
         avatarImage.visibility = View.VISIBLE
         avatarProgressBar.visibility = View.INVISIBLE
-        avatarImage.setImageBitmap(image)
+
+        Glide.with(this).load(localUri).circleCrop().into(avatarImage)
     }
 
     override fun conversationCreated(convId: String, accId: String) {

@@ -1,5 +1,6 @@
 package ge.ajikuridze.messengerapp.conversations
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,12 +12,13 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ge.ajikuridze.messengerapp.R
 import ge.ajikuridze.messengerapp.Utils
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 import java.io.InputStream
 
-class ConversationsListAdapter(val listener: ConversationItemListener,
+class ConversationsListAdapter(val context: Context, val listener: ConversationItemListener,
                                private var data :ArrayList<ConversationPreview>):
     RecyclerView.Adapter<ConversationsListItemViewHolder>() {
 
@@ -38,8 +40,8 @@ class ConversationsListAdapter(val listener: ConversationItemListener,
         holder.avatar.visibility = View.INVISIBLE
         holder.loader.visibility = View.VISIBLE
 
-        if (conv.avatarBitmap != null) {
-            holder.avatar.setImageBitmap(conv.avatarBitmap)
+        if (conv.avatarUri != null) {
+            Glide.with(context).load(conv.avatarUri).circleCrop().into(holder.avatar)
             holder.avatar.visibility = View.VISIBLE
             holder.loader.visibility = View.INVISIBLE
         }

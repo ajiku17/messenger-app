@@ -1,10 +1,13 @@
 package ge.ajikuridze.messengerapp
 
-import com.google.firebase.database.Exclude
-import kotlinx.parcelize.IgnoredOnParcel
-import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
+
+import androidx.annotation.AnyRes
+
 
 class Utils {
 
@@ -35,6 +38,18 @@ class Utils {
             }
 
             return formatAsDayOfMonth(timestamp)
+        }
+
+        fun getUriToDrawable(
+            context: Context,
+            @AnyRes drawableId: Int
+        ): Uri {
+            return Uri.parse(
+                ContentResolver.SCHEME_ANDROID_RESOURCE +
+                        "://" + context.getResources().getResourcePackageName(drawableId)
+                        + '/' + context.getResources().getResourceTypeName(drawableId)
+                        + '/' + context.getResources().getResourceEntryName(drawableId)
+            )
         }
     }
 }

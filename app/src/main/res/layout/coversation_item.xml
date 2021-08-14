@@ -9,7 +9,6 @@
         android:layout_width="@dimen/coversation_item_avatar_size"
         android:layout_height="@dimen/coversation_item_avatar_size"
         android:layout_marginStart="@dimen/margin"
-        android:layout_marginLeft="@dimen/margin"
         android:layout_marginTop="@dimen/margin"
         android:src="@drawable/avatar_image_placeholder"
         app:layout_constraintStart_toStartOf="parent"

@@ -27,6 +27,7 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ProgressBar
+import com.bumptech.glide.Glide
 import java.io.InputStream
 
 
@@ -98,9 +99,7 @@ class ProfileFragment() : Fragment(), IProfileView {
     }
 
     private fun setAvatarFromLocal(localUri: Uri) {
-        val imageStream: InputStream = context?.contentResolver?.openInputStream(localUri) ?: return
-        val selectedImage: Bitmap = BitmapFactory.decodeStream(imageStream)
-        profilePicture.setImageBitmap(selectedImage)
+        Glide.with(this).load(localUri).circleCrop().into(profilePicture)
     }
 
     val getContent: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -112,7 +111,6 @@ class ProfileFragment() : Fragment(), IProfileView {
         }
     }
 
-    val RESULT_LOAD_IMAGE = 1
     private fun initListeners() {
         signOut.setOnClickListener {
             presenter.signOut()
