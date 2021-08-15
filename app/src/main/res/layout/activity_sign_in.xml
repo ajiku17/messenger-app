@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="210dp"
-        android:layout_height="210dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="@dimen/login_avatar_size"
+        android:layout_height="@dimen/login_avatar_size"
+        android:layout_marginTop="@dimen/login_avatar_margin"
 
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
         android:layout_marginTop="@dimen/margin"
         android:padding="@dimen/padding"
         android:textAlignment="center"
-        android:ems="12"
+        android:ems="@dimen/edit_text_ems"
         android:inputType="textPersonName"
         android:hint="@string/enter_your_nickname"
         android:background="@drawable/gray_background"
@@ -44,7 +44,7 @@
         android:padding="@dimen/padding"
 
         android:textAlignment="center"
-        android:ems="12"
+        android:ems="@dimen/edit_text_ems"
         android:inputType="textPassword"
         android:hint="@string/enter_your_password"
         android:background="@drawable/gray_background"

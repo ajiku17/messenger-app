@@ -1,7 +1,5 @@
 package ge.ajikuridze.messengerapp.conversations
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,7 +15,6 @@ import ge.ajikuridze.messengerapp.Utils
 import ge.ajikuridze.messengerapp.chat.ChatActivity
 import ge.ajikuridze.messengerapp.models.ConversationPreview
 import java.io.File
-import java.io.InputStream
 
 class ConversationsFragment() : Fragment(), IConversationsView, ConversationItemListener {
 
@@ -40,7 +37,7 @@ class ConversationsFragment() : Fragment(), IConversationsView, ConversationItem
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        conversationsList = view.findViewById(R.id.converations)
+        conversationsList = view.findViewById(R.id.conversations)
         searchField = view.findViewById(R.id.conversation_search)
         progressBar = view.findViewById(R.id.conversations_progress_bar)
 

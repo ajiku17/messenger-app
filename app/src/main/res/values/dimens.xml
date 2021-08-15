@@ -18,4 +18,9 @@
     <dimen name="sent_message_text_size">18sp</dimen>
 
     <dimen name="sent_message_radius">30dp</dimen>
+    <dimen name="bottom_app_bar_height">50dp</dimen>
+    <dimen name="chat_avatar_size">60dp</dimen>
+    <dimen name="login_avatar_size">210dp</dimen>
+    <dimen name="login_avatar_margin">100dp</dimen>
+    <dimen name="edit_text_ems">12</dimen>
 </resources>
