@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "441625344812",
+    "project_id": "messenger-app-40ddb",
+    "storage_bucket": "messenger-app-40ddb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441625344812:android:99be404a4cffce51b08a89",
+        "android_client_info": {
+          "package_name": "ge.ajikuridze.messengerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441625344812-btv4v8la3v8r5a432b97vd7gjdagbn1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa_VwqqFWwG9KOFezUCIlHUHW-8COO-pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441625344812-btv4v8la3v8r5a432b97vd7gjdagbn1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
